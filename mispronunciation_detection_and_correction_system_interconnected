@@ -1,0 +1,43 @@
+// Mispronunciation Detection and Correction System
+digraph {
+	A [label="Collect Datasets
+(Accents, Pronunciations, Annotations)"]
+	B [label="Fine-tune ASR System
+(Optional)"]
+	C [label="ASR Implementation"]
+	D [label="Phoneme Analysis"]
+	E [label="Scoring and Highlighting"]
+	F [label="Provide Feedback and Improvement Tips"]
+	G [label="User Experience
+(Speaking, Scoring, Feedback)"]
+	A -> B
+	B -> C
+	C -> D
+	D -> E
+	E -> F
+	F -> G
+	C1 [label="Pre-process Audio
+(Noise Reduction, Normalization)" color=lightblue shape=box style=filled]
+	C2 [label="Segment Speech" color=lightblue shape=box style=filled]
+	C3 [label="Transcribe Speech using ASR System
+(Google, DeepSpeech, Whisper)" color=lightblue shape=box style=filled]
+	C4 [label="Post-process Transcription" color=lightblue shape=box style=filled]
+	C -> C1
+	C1 -> C2
+	C2 -> C3
+	C3 -> C4
+	D1 [label="Convert User Speech to Phonemes
+(Montreal Forced Aligner, phonemizer)" color=orange shape=box style=filled]
+	D2 [label="Convert Standard Text to Phonemes" color=orange shape=box style=filled]
+	D3 [label="Align Phonemes using DTW
+(Dynamic Time Warping)" color=orange shape=box style=filled]
+	D4 [label="Compare Phoneme Sequences" color=orange shape=box style=filled]
+	D5 [label="Identify Mismatches and Low Confidence Phonemes" color=orange shape=box style=filled]
+	D -> D1
+	D1 -> D2
+	D2 -> D3
+	D3 -> D4
+	D4 -> D5
+	E -> G
+	F -> G
+}

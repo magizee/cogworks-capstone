@@ -1,0 +1,52 @@
+graph TB
+    subgraph "Data Preparation"
+        A[Collect Datasets] --> B[Fine-tune ASR System]
+    end
+
+    subgraph "User Interaction"
+        C[User Speaks] --> D[Receive Audio Input]
+    end
+
+    subgraph "ASR Implementation"
+        D --> E[Pre-process Audio]
+        E --> F[Segment Speech]
+        F --> G[Transcribe Speech]
+        G --> H[Post-process Transcription]
+    end
+
+    subgraph "Phoneme Analysis"
+        I[Convert Standard Text to Phonemes]
+        H --> J[Convert User Speech to Phonemes]
+        J & I --> K[Align Phonemes using DTW]
+        K --> L[Compare Phoneme Sequences]
+        L --> M[Identify Mismatches and Low Confidence Phonemes]
+    end
+
+    subgraph "Scoring and Feedback"
+        M --> N[Calculate Pronunciation Score]
+        N --> O[Generate Visual Feedback]
+        N --> P[Prepare Improvement Tips]
+    end
+
+    subgraph "User Experience"
+        O & P --> Q[Display Score and Feedback to User]
+    end
+
+    %% Connections between subgraphs
+    B -.-> G
+    A -.-> I
+    C -.-> E
+    Q -.-> C
+
+    %% Styling
+    classDef primary fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef secondary fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef tertiary fill:#bfb,stroke:#333,stroke-width:2px;
+    class A,B,C,D,Q primary;
+    class E,F,G,H,I,J,K,L,M secondary;
+    class N,O,P tertiary;
+
+    %% Labels
+    linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13 stroke-width:2px,fill:none,stroke:black;
+    linkStyle 14,15,16,17 stroke-width:2px,fill:none,stroke:#666,stroke-dasharray: 5, 5;
+    
