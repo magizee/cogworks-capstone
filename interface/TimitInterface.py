@@ -20,7 +20,7 @@ class TimitInterface:
         self.test_csv = test_csv
         self.data = {} # dictionary containing file paths for audio, text, and phonemes
         self.train = {} # split of data for training
-        self.valid = {} # split of data for valid
+        self.valid = {} # split of data for validation
         self.test = {} # split of data for test
         self.load_data()
         self.split_data()
