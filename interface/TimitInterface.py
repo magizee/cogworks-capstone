@@ -14,7 +14,7 @@ import numpy as np
 import random
 
 class TimitInterface:
-    def __init__(self, data_dir='../TIMIT/data', train_csv='../TIMIT/train_data.csv', test_csv='../TIMIT/test_data.csv'):
+    def __init__(self, data_dir='./TIMIT/data', train_csv='./TIMIT/train_data.csv', test_csv='./TIMIT/test_data.csv'):
         self.data_dir = os.path.abspath(data_dir)
         self.train_csv = train_csv
         self.test_csv = test_csv
