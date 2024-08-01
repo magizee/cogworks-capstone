@@ -128,16 +128,17 @@ def get_needed_data(wav_path, txt_path, phn_path):
     token = (processor(audio_arr, sampling_rate=16000, padding=True, return_tensors="pt").input_values).to(device)
     phoneme_abs = phoneme_abstraction(phn_path)
     phoneme_token = torch.tensor(phoneme_abs, dtype=torch.int32)
-    """phoneme = read_phoneme_file(phn_path)
-    phoneme_token = (processor.tokenizer(phoneme, return_tensors="pt", padding=True, truncation=True).input_ids).to(device)"""
-
     """phonetic_segments = read_phoneme_file(phn_path)
     phoneme = del_unnecessary_phonetic(phonetic_segments)
     phoneme_converted = convert_to_ipa(phoneme)
     phoneme_token = (processor.tokenizer(phoneme_converted, return_tensors="pt").input_ids).to(device)"""
 
+    print(f"Audio shape: {audio_arr.shape}")
+    print(f"Token shape: {token.shape}")
+    print(f"Phoneme abstract: {phoneme_abs}")
+    print(f"Phoneme token: {phoneme_token}")
+
     line = sentence_being_read(txt_path)
     token_len = torch.tensor([len(token)], dtype=torch.int32)
     phoneme_abs_len = torch.tensor([len(phoneme_token)], dtype=torch.int32)
-    #return line, audio_arr, token, phenome_abs, len(token), len(phenome_abs)
     return line, audio_arr, token, phoneme_token, token_len, phoneme_abs_len
