@@ -1,6 +1,7 @@
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 import librosa
 import numpy as np
+import torch
 
 # Load the Wav2Vec2 processor and model
 def initialize_model():
@@ -9,6 +10,8 @@ def initialize_model():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     return processor, model, device
+
+processor, model, device = initialize_model()
 
 arphabet_to_ipa = {
     'aa': 'ɑ',

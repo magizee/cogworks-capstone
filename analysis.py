@@ -4,7 +4,6 @@ import dtw
 def compute_alingment(pho1, pho2):
     pho1 = np.array(pho1)
     pho2 = np.array(pho2)
-
     alingment = dtw(pho1, pho2, keep_internals = True)
     return alingment
 
