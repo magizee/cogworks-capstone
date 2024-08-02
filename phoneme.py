@@ -81,6 +81,9 @@ arphabet_to_ipa = {
 arphabet = list(arphabet_to_ipa.keys())
 arphabet_to_num = {a: i for i, a in enumerate(arphabet)}
 
+def return_arphabet_to_num():
+    return arphabet_to_num
+
 def read_phoneme_file(phn_path):
     phonetic_segments = []
     with open(phn_path, 'r') as file:
@@ -113,7 +116,7 @@ def phoneme_abstraction(phn_path):
     #phonetic_segments = []
     phonetic_segments = read_phoneme_file(phn_path)
     phoneme = del_unnecessary_phonetic(phonetic_segments)
-    return convert_to_num(phoneme)
+    return convert_to_ipa(phoneme)
 
 def sentence_being_read(txt_path):
     with open(txt_path, 'r') as file:
@@ -142,3 +145,26 @@ def get_needed_data(wav_path, txt_path, phn_path):
     token_len = torch.tensor([len(token)], dtype=torch.int32)
     phoneme_abs_len = torch.tensor([len(phoneme_token)], dtype=torch.int32)
     return line, audio_arr, token, phoneme_token, token_len, phoneme_abs_len
+
+def extract_needed_data(path):
+    audio_arr = speech_file_to_array(path+'.WAV')
+    #token = (processor(audio_arr, sampling_rate=16000, padding=True, return_tensors="pt").input_values).to(device)
+    #phoneme = read_phoneme_file(path+'.PHN')
+    #phoneme_list = del_unnecessary_phonetic(phoneme)
+    phoneme = phoneme_abstraction(path+'.PHN')
+    
+    #phoneme_token = torch.tensor(phoneme_abs, dtype=torch.int32)
+    """phonetic_segments = read_phoneme_file(phn_path)
+    phoneme = del_unnecessary_phonetic(phonetic_segments)
+    phoneme_converted = convert_to_ipa(phoneme)
+    phoneme_token = (processor.tokenizer(phoneme_converted, return_tensors="pt").input_ids).to(device)"""
+
+    """print(f"Audio shape: {audio_arr.shape}")
+    print(f"Token shape: {token.shape}")
+    print(f"Phoneme abstract: {phoneme_abs}")
+    print(f"Phoneme token: {phoneme_token}")"""
+
+    line = sentence_being_read(path+'.TXT')
+    #token_len = torch.tensor([len(token)], dtype=torch.int32)
+    #phoneme_abs_len = torch.tensor([len(phoneme_token)], dtype=torch.int32)
+    return audio_arr, line, phoneme
