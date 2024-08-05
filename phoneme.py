@@ -116,7 +116,8 @@ def phoneme_abstraction(phn_path):
     #phonetic_segments = []
     phonetic_segments = read_phoneme_file(phn_path)
     phoneme = del_unnecessary_phonetic(phonetic_segments)
-    return convert_to_ipa(phoneme)
+    #return convert_to_ipa(phoneme)
+    return '|'.join(phoneme)
 
 def sentence_being_read(txt_path):
     with open(txt_path, 'r') as file:
