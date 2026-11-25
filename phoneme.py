@@ -4,14 +4,14 @@ import numpy as np
 import torch
 
 # Load the Wav2Vec2 processor and model
-def initialize_model():
-    processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
-    model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
-    return processor, model, device
+# def initialize_model():
+#     processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
+#     model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
+#     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#     model.to(device)
+#     return processor, model, device
 
-processor, model, device = initialize_model()
+# processor, model, device = initialize_model()
 
 arphabet_to_ipa = {
     'aa': 'ɑ',
@@ -123,7 +123,7 @@ def sentence_being_read(txt_path):
 
 import torch
 
-def get_needed_data(wav_path, txt_path, phn_path):
+def get_needed_data(wav_path, txt_path, phn_path, device, processor):
     audio_arr = speech_file_to_array(wav_path)
     token = (processor(audio_arr, sampling_rate=16000, padding=True, return_tensors="pt").input_values).to(device)
     phoneme_abs = phoneme_abstraction(phn_path)
@@ -133,10 +133,10 @@ def get_needed_data(wav_path, txt_path, phn_path):
     phoneme_converted = convert_to_ipa(phoneme)
     phoneme_token = (processor.tokenizer(phoneme_converted, return_tensors="pt").input_ids).to(device)"""
 
-    print(f"Audio shape: {audio_arr.shape}")
-    print(f"Token shape: {token.shape}")
-    print(f"Phoneme abstract: {phoneme_abs}")
-    print(f"Phoneme token: {phoneme_token}")
+    # print(f"Audio shape: {audio_arr.shape}")
+    # print(f"Token shape: {token.shape}")
+    # print(f"Phoneme abstract: {phoneme_abs}")
+    # print(f"Phoneme token: {phoneme_token}")
 
     line = sentence_being_read(txt_path)
     token_len = torch.tensor([len(token)], dtype=torch.int32)
